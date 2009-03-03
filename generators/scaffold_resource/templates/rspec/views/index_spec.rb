@@ -10,10 +10,12 @@ describe "/<%= table_name %>/index.<%= default_file_extension %>" do
     <%= file_name %>_<%= id %>.should_receive(:<%= attribute.name %>).and_return(<%= attribute.default_value %>)
 <% end -%><% end %>
     assigns[:<%= table_name %>] = [<%= file_name %>_98, <%= file_name %>_99]
-
-    template.stub!(:object_url).and_return(<%= file_name %>_path(@<%= file_name %>)) 
+    
+    @controller.instance_variable_set(:@url, (ActionController::UrlRewriter.new @request, {}))
+    
+    template.stub!(:object_url).and_return(<%= file_name %>_path(<%= file_name %>_99)) 
     template.stub!(:new_object_url).and_return(new_<%= file_name %>_path) 
-    template.stub!(:edit_object_url).and_return(edit_<%= file_name %>_path(@<%= file_name %>)) 
+    template.stub!(:edit_object_url).and_return(edit_<%= file_name %>_path(<%= file_name %>_99)) 
   end
 
   it "should render list of <%= table_name %>" do

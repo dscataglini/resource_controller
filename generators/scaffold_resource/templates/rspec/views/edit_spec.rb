@@ -9,6 +9,8 @@ describe "/<%= table_name %>/edit.<%= default_file_extension %>" do
     @<%= file_name %>.stub!(:<%= attribute.name %>).and_return(<%= attribute.default_value %>)
 <% end -%>
     assigns[:<%= file_name %>] = @<%= file_name %>
+    
+    @controller.instance_variable_set(:@url, (ActionController::UrlRewriter.new @request, {}))
 
     template.should_receive(:object_url).twice.and_return(<%= file_name %>_path(@<%= file_name %>)) 
     template.should_receive(:collection_url).and_return(<%= file_name.pluralize %>_path) 

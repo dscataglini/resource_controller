@@ -10,7 +10,8 @@ describe "/<%= table_name %>/new.<%= default_file_extension %>" do
     @<%= file_name %>.stub!(:<%= attribute.name %>).and_return(<%= attribute.default_value %>)
 <% end -%>
     assigns[:<%= file_name %>] = @<%= file_name %>
-
+    
+    @controller.instance_variable_set(:@url, (ActionController::UrlRewriter.new @request, {}))
 
     template.stub!(:object_url).and_return(<%= file_name %>_path(@<%= file_name %>)) 
     template.stub!(:collection_url).and_return(<%= file_name.pluralize %>_path) 
